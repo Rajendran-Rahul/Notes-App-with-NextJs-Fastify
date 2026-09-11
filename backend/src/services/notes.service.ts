@@ -1,0 +1,49 @@
+import { Notes } from "../models/Notes.ts";
+import { Op } from "sequelize";
+import type { WhereOptions } from "sequelize";
+import { sequelize } from "../config/database.ts";
+import type {
+  ListNotesQuery,
+  NotesRequestBody,
+  UpdateNotes,
+} from "../lib/notes.types.ts";
+
+export const notesService = {
+  async list(Querystring: ListNotesQuery) {
+    const { tag, search } = Querystring;
+    const where: WhereOptions = {
+        is_active: true
+    };
+    if (tag) {
+      where.tag = {
+        [Op.like]: `%${tag}%`,
+      };
+    }
+
+    if (search) {
+      where[Op.or as any] = [
+        { title: { [Op.like]: `%${search}%` } },
+        { description: { [Op.like]: `%${search}%` } },
+      ];
+    }
+
+    return await Notes.findAll({
+      where,
+    });
+  },
+
+  async create(body: NotesRequestBody) {
+    return sequelize.transaction(async (t) => {
+      return Notes.create(body);
+    });
+  },
+
+  async updateNotes(body: UpdateNotes) {
+    const { id, ...changedNote } = body;
+    return Notes.update(changedNote, { where: { id } });
+  },
+
+  async deleteNote(id: number) {
+    return Notes.update({ is_active: false }, { where: { id } });
+  },
+};
