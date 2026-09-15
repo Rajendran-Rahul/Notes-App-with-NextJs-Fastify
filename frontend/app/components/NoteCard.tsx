@@ -10,9 +10,12 @@ import { Badge } from "@/components/ui/badge";
 import { NoteProps } from "@/app/lib/notes.types";
 
 const palette = [
-  { bg: "#EEEDFE", text: "#26215C" },
-  { bg: "#E1F5EE", text: "#04342C" },
-  { bg: "#FAECE7", text: "#4A1B0C" },
+  { bg: "var(--color-note-amber)", text: "#7A4E00" },
+  { bg: "var(--color-note-sage)", text: "#1F4A34" },
+  { bg: "var(--color-note-terracotta)", text: "#7A2E1F" },
+  { bg: "var(--color-note-lavender)", text: "#3E3269" },
+  { bg: "var(--color-note-sky)", text: "#1E4A66" },
+  { bg: "var(--color-note-sand)", text: "#5C4526" },
 ];
 
 const colorFor = (id: number) => palette[id % palette.length];
@@ -24,30 +27,37 @@ export function NoteCard({
   updatedAt,
   id,
 }: NoteProps) {
-    console.log(  updatedAt,
-);
-    
   const { bg, text } = colorFor(Number(id));
+
   return (
     <Card
-      className="shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer border-none"
+      className="border-none cursor-pointer transition-colors duration-200"
       style={{ backgroundColor: bg, color: text }}
     >
       <CardHeader>
-        <CardTitle className="line-clamp-1">{title}</CardTitle>
-        <CardDescription className="line-clamp-2">
+        <CardTitle className="line-clamp-1 text-2xl" style={{ color: text }}>
+          {title}
+        </CardTitle>
+        <CardDescription
+          className="line-clamp-2 text-base"
+          style={{ color: text, opacity: 0.75 }}
+        >
           {description}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-wrap gap-1">
         {(tags ?? []).map((tag: string) => (
-          <Badge key={tag} variant="secondary">
+          <Badge
+            key={tag}
+            variant="secondary"
+            style={{ backgroundColor: "rgba(255,255,255,0.5)", color: text }}
+          >
             {tag}
           </Badge>
         ))}
       </CardContent>
-      <CardFooter className="text-xs text-muted-foreground">
-        Updated {(new Date(updatedAt).toLocaleDateString())}
+      <CardFooter className="text-xs" style={{ color: text, opacity: 0.65 }}>
+        Updated {new Date(updatedAt).toLocaleDateString()}
       </CardFooter>
     </Card>
   );

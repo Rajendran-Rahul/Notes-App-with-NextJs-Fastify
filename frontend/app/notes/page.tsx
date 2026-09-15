@@ -4,8 +4,6 @@ import { NoteProps } from "@/app/lib/notes.types";
 
 const Notes = async () => {
   const allNotes = await fetchData<NoteProps[]>(get_note);
-  console.log("allNotes", allNotes);
-  
 
   return (
     <main>

@@ -128,3 +128,18 @@
     @apply font-sans;
   }
 }
+
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #FDFBF7;
+  --color-ink: #2B2A27;
+  --color-accent: #F97316;
+
+  --color-note-amber: #FDECC8;
+  --color-note-sage: #E4F0E9;
+  --color-note-terracotta: #FBE7E4;
+  --color-note-lavender: #EAE6F5;
+  --color-note-sky: #E3EEF5;
+  --color-note-sand: #F5E9D6;
+}
