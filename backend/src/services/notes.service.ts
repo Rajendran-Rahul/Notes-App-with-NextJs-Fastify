@@ -1,5 +1,5 @@
 import { Notes } from "../models/Notes.ts";
-import { Op } from "sequelize";
+import { Op, literal } from "sequelize";
 import type { WhereOptions } from "sequelize";
 import { sequelize } from "../config/database.ts";
 import type {
@@ -12,12 +12,12 @@ export const notesService = {
   async list(Querystring: ListNotesQuery) {
     const { tag, search } = Querystring;
     const where: WhereOptions = {
-        is_active: true
+      is_active: true,
     };
     if (tag) {
-      where.tag = {
-        [Op.like]: `%${tag}%`,
-      };
+      where[Op.and as any] = [
+        literal(`JSON_CONTAINS(tags, '${JSON.stringify([tag])}')`),
+      ];
     }
 
     if (search) {
@@ -29,6 +29,7 @@ export const notesService = {
 
     return await Notes.findAll({
       where,
+      replacements: tag ? { tagValue: JSON.stringify([tag]) } : undefined,
     });
   },
 
@@ -45,5 +46,9 @@ export const notesService = {
 
   async deleteNote(id: number) {
     return Notes.update({ is_active: false }, { where: { id } });
+  },
+
+  async getNote(id: string) {
+    return Notes.findByPk(id);
   },
 };

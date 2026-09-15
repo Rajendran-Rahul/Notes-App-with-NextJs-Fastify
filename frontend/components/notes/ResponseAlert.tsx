@@ -4,7 +4,7 @@ import {
   AlertDescription,
   AlertTitle,
 } from "@/components/ui/alert";
-import { ResponseAlertProps } from "../lib/notes.types";
+import { ResponseAlertProps } from "@/lib/schema/notes.types";
 import { Button } from "@/components/ui/button";
 import { AlertCircleIcon } from "lucide-react";
 

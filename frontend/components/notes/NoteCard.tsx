@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { NoteProps } from "@/app/lib/notes.types";
+import { NoteProps } from "@/lib/schema/notes.types";
 
 const palette = [
   {
@@ -52,7 +52,7 @@ export function NoteCard({
   id,
 }: NoteProps) {
   const { bg, text, badgeBg } = colorFor(Number(id));
-
+  
   return (
     <Card
       className={`border-none cursor-pointer transition-colors duration-200 ${bg} ${text}`}
@@ -67,13 +67,20 @@ export function NoteCard({
           {description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-wrap gap-1 line-clamp-1">
-        {(tags ?? []).map((tag: string) => (
-          <Badge key={tag} variant="secondary" className={`${badgeBg} ${text}`}>
-            {tag}
-          </Badge>
-        ))}
-      </CardContent>
+      {tags && tags.length && (
+        <CardContent className="flex flex-wrap gap-2 items-center">
+          {tags.map((tag: string) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className={`${badgeBg} ${text}`}
+            >
+              {tag}
+            </Badge>
+          ))}
+        </CardContent>
+      )}
+
       <CardFooter className={`text-xs opacity-65 ${text}`}>
         Updated {new Date(updatedAt).toLocaleDateString()}
       </CardFooter>

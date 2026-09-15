@@ -12,7 +12,7 @@ try {
   await sequelize.authenticate();
   console.log("database connected");
 
-  await sequelize.sync();
+  await sequelize.sync({ force: true });
   console.log("Tables synced");
 
   await fastify.listen({

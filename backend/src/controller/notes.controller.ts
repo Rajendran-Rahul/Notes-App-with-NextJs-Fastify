@@ -2,6 +2,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { notesService } from "../services/notes.service.ts";
 import type {
   ListNotesQuery,
+  NoteIdParam,
   NotesRequestBody,
   UpdateNotes,
 } from "../lib/notes.types.ts";
@@ -19,13 +20,11 @@ export async function create(
   reply: FastifyReply,
 ) {
   const create = await notesService.create(req.body);
-  return reply
-    .code(200)
-    .send({
-      data: create,
-      message: "Note created successfully",
-      status: "success",
-    });
+  return reply.code(200).send({
+    data: create,
+    message: "Note created successfully",
+    status: "success",
+  });
 }
 
 export async function update(
@@ -53,4 +52,22 @@ export async function deleteNote(
   const { id } = req.body;
   await notesService.deleteNote(id);
   return reply.code(200).send({ message: "Note deleted successfully" });
+}
+
+export async function getNote(
+  req: FastifyRequest<{ Params: NoteIdParam }>,
+  reply: FastifyReply,
+) {
+  const { id } = req.params;
+  const note = await notesService.getNote(id);
+  if (!note) {
+    return reply.code(404).send({ message: "Note note found" });
+  }
+  return reply
+    .code(201)
+    .send({
+      data: note,
+      message: "Note found successfully",
+      status: "success",
+    });
 }

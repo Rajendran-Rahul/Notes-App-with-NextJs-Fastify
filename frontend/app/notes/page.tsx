@@ -1,9 +1,9 @@
-import { get_note, fetchData } from "@/app/api";
-import { NoteList } from "@/app/components/NoteList";
-import { NoteProps } from "@/app/lib/notes.types";
+import { get_note, fetchData } from "@/api";
+import { NoteList } from "@/components/notes/NoteList";
+import { NoteProps } from "@/lib/schema/notes.types";
 
 const Notes = async () => {
-  const allNotes = await fetchData<NoteProps[]>(get_note);
+  const allNotes = await fetchData<NoteProps[]>(get_note);  
 
   return (
     <main>
