@@ -21,7 +21,11 @@ export async function create(
   const create = await notesService.create(req.body);
   return reply
     .code(200)
-    .send({ data: create, message: "Note created successfully" });
+    .send({
+      data: create,
+      message: "Note created successfully",
+      status: "success",
+    });
 }
 
 export async function update(

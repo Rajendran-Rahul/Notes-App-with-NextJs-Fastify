@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@fastify/cors": "^11.3.0",
     "@fastify/mysql": "^5.0.3",
     "dotenv": "^17.4.2",
     "fastify": "^5.12.3",

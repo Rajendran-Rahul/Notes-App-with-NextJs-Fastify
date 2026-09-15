@@ -10,12 +10,36 @@ import { Badge } from "@/components/ui/badge";
 import { NoteProps } from "@/app/lib/notes.types";
 
 const palette = [
-  { bg: "var(--color-note-amber)", text: "#7A4E00" },
-  { bg: "var(--color-note-sage)", text: "#1F4A34" },
-  { bg: "var(--color-note-terracotta)", text: "#7A2E1F" },
-  { bg: "var(--color-note-lavender)", text: "#3E3269" },
-  { bg: "var(--color-note-sky)", text: "#1E4A66" },
-  { bg: "var(--color-note-sand)", text: "#5C4526" },
+  {
+    bg: "bg-note-amber",
+    text: "text-note-amber-text",
+    badgeBg: "bg-note-amber-badge",
+  },
+  {
+    bg: "bg-note-sage",
+    text: "text-note-sage-text",
+    badgeBg: "bg-note-sage-badge",
+  },
+  {
+    bg: "bg-note-terracotta",
+    text: "text-note-terracotta-text",
+    badgeBg: "bg-note-terracotta-badge",
+  },
+  {
+    bg: "bg-note-lavender",
+    text: "text-note-lavender-text",
+    badgeBg: "bg-note-lavender-badge",
+  },
+  {
+    bg: "bg-note-sky",
+    text: "text-note-sky-text",
+    badgeBg: "bg-note-sky-badge",
+  },
+  {
+    bg: "bg-note-sand",
+    text: "text-note-sand-text",
+    badgeBg: "bg-note-sand-badge",
+  },
 ];
 
 const colorFor = (id: number) => palette[id % palette.length];
@@ -27,36 +51,30 @@ export function NoteCard({
   updatedAt,
   id,
 }: NoteProps) {
-  const { bg, text } = colorFor(Number(id));
+  const { bg, text, badgeBg } = colorFor(Number(id));
 
   return (
     <Card
-      className="border-none cursor-pointer transition-colors duration-200"
-      style={{ backgroundColor: bg, color: text }}
+      className={`border-none cursor-pointer transition-colors duration-200 ${bg} ${text}`}
     >
       <CardHeader>
-        <CardTitle className="line-clamp-1 text-2xl" style={{ color: text }}>
+        <CardTitle className={`line-clamp-1 text-2xl ${text}`}>
           {title}
         </CardTitle>
         <CardDescription
-          className="line-clamp-2 text-base"
-          style={{ color: text, opacity: 0.75 }}
+          className={`line-clamp-2 text-base opacity-75 ${text}`}
         >
           {description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-wrap gap-1">
+      <CardContent className="flex flex-wrap gap-1 line-clamp-1">
         {(tags ?? []).map((tag: string) => (
-          <Badge
-            key={tag}
-            variant="secondary"
-            style={{ backgroundColor: "rgba(255,255,255,0.5)", color: text }}
-          >
+          <Badge key={tag} variant="secondary" className={`${badgeBg} ${text}`}>
             {tag}
           </Badge>
         ))}
       </CardContent>
-      <CardFooter className="text-xs" style={{ color: text, opacity: 0.65 }}>
+      <CardFooter className={`text-xs opacity-65 ${text}`}>
         Updated {new Date(updatedAt).toLocaleDateString()}
       </CardFooter>
     </Card>

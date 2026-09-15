@@ -7,9 +7,9 @@ export interface NoteProps {
   title: string;
   description: string;
   is_active?: true | false;
-  updatedAt: string
+  updatedAt: string;
   tags?: string[];
-  id?: number,
+  id?: number;
 }
 
 export interface UpdateNotes extends Partial<NoteProps> {
@@ -18,5 +18,12 @@ export interface UpdateNotes extends Partial<NoteProps> {
 
 export interface ApiResponse {
   message: string;
+  status: string;
   data?: Partial<NoteProps>;
+}
+
+export interface ResponseAlertProps {
+  title: string;
+  variant: "default" | "destructive";
+  alertDescription: string;
 }

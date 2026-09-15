@@ -1,12 +1,12 @@
 import Fastify from "fastify";
 import { sequelize } from "./config/database.ts";
-import routes from "./routes/notes.routes.ts";
+import { registerPlugins } from "../src/plugins/index.ts";
 
 const fastify = Fastify({
   logger: true,
 });
 
-fastify.register(routes);
+await registerPlugins(fastify);
 
 try {
   await sequelize.authenticate();
