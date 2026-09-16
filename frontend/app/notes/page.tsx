@@ -3,12 +3,16 @@ import { NoteList } from "@/components/notes/NoteList";
 import { NoteProps } from "@/lib/schema/notes.types";
 
 const Notes = async () => {
-  const allNotes = await fetchData<NoteProps[]>(get_note);  
+  const allNotes = await fetchData<NoteProps[]>(get_note);
 
   return (
     <main>
-      {allNotes && allNotes.length && <NoteList notes={allNotes ?? []} />}
+      {allNotes.length > 0 ? (
+        <NoteList notes={allNotes} />
+      ) : (
+        <p className="text-muted-foreground">No notes yet.</p>
+      )}
     </main>
   );
 };
-export { Notes };
+export default Notes;

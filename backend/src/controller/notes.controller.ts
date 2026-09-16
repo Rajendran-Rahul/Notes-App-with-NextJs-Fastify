@@ -18,7 +18,7 @@ export async function list(
 export async function create(
   req: FastifyRequest<{ Body: NotesRequestBody }>,
   reply: FastifyReply,
-) {
+) {  
   const create = await notesService.create(req.body);
   return reply.code(200).send({
     data: create,
@@ -51,7 +51,7 @@ export async function deleteNote(
 ) {
   const { id } = req.body;
   await notesService.deleteNote(id);
-  return reply.code(200).send({ message: "Note deleted successfully" });
+  return reply.code(200).send({ message: "Note deleted successfully", status: "success" });
 }
 
 export async function getNote(

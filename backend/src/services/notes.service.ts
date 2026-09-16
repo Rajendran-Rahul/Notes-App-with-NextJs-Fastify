@@ -33,9 +33,9 @@ export const notesService = {
     });
   },
 
-  async create(body: NotesRequestBody) {
+  async create(body: NotesRequestBody) {    
     return sequelize.transaction(async (t) => {
-      return Notes.create(body);
+      return Notes.create(body, {transaction:t});
     });
   },
 

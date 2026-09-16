@@ -1257,8 +1257,6 @@ Controller
  ↓
 Service
  ↓
-Repository
- ↓
 Sequelize
  ↓
 MariaDB

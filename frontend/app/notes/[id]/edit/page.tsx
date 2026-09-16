@@ -20,7 +20,7 @@ export default async function EditNotePage({
         defaultValues={{
           title: note?.title || "",
           description: note?.description,
-          tag: note?.tags ?? [],
+          tags: note?.tags ?? [],
         }}
       />
     </div>

@@ -28,7 +28,7 @@ export function NoteForm({ mode, noteId, defaultValues }: NoteFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<CreateNoteFormValues>({
     resolver: zodResolver(createNoteSchema),
-    defaultValues: defaultValues ?? { title: "", description: "", tag: [] },
+    defaultValues: defaultValues ?? { title: "", description: "", tags: [] },
   });
 
   const onSubmit = async (data: CreateNoteFormValues) => {
@@ -51,7 +51,7 @@ export function NoteForm({ mode, noteId, defaultValues }: NoteFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 max-w-md"
+      className="flex flex-col gap-4 max-w-md mx-auto"
     >
       <div>
         <input
@@ -76,13 +76,13 @@ export function NoteForm({ mode, noteId, defaultValues }: NoteFormProps) {
       </div>
 
       <Controller
-        name="tag"
+        name="tags"
         control={control}
         render={({ field }) => (
           <TagInput
             value={field.value ?? []}
             onChange={field.onChange}
-            error={errors.tag?.message}
+            error={errors.tags?.message}
           />
         )}
       />

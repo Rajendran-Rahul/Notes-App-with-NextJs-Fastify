@@ -3,6 +3,7 @@ import { fetchData, get_note } from "@/api";
 import { ApiResponse } from "@/lib/schema/notes.types";
 import { Badge } from "@/components/ui/badge";
 import { notFound } from "next/navigation";
+import { DeleteNote } from "@/components/notes/DeleteNote";
 
 export default async function NoteDetailPage({
   params,
@@ -35,6 +36,7 @@ export default async function NoteDetailPage({
           >
             Edit
           </Link>
+          <DeleteNote id={Number(id)} variant="button" />
         </div>
       </div>
       {note && (
